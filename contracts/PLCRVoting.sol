@@ -1,8 +1,8 @@
 pragma solidity ^0.4.8;
-import "tokens/eip20/EIP20Interface.sol";
-import "dll/DLL.sol";
-import "attrstore/AttributeStore.sol";
-import "zeppelin/math/SafeMath.sol";
+import "./lib/EIP20Interface.sol";
+import "./lib/DLL.sol";
+import "./lib/AttributeStore.sol";
+import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 /**
 @title Partial-Lock-Commit-Reveal Voting scheme with ERC20 tokens
@@ -160,8 +160,8 @@ contract PLCRVoting {
 
         bytes32 UUID = attrUUID(msg.sender, _pollID);
 
-        store.setAttribute(UUID, "numTokens", _numTokens);
-        store.setAttribute(UUID, "commitHash", uint(_secretHash));
+        store.attachAttribute(UUID, "numTokens", _numTokens);
+        store.attachAttribute(UUID, "commitHash", uint(_secretHash));
 
         pollMap[_pollID].didCommit[msg.sender] = true;
         emit _VoteCommitted(_pollID, _numTokens, msg.sender);
